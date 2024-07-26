@@ -27,6 +27,7 @@ export default function ContentForm() {
   const [title, setTitle] = useState('')
   const [slug, setSlug] = useState('')
   const [content, setContent] = useState<string>('')
+  const [pending, setPending] = useState(false)
 
   useEffect(() => {
     const name = title
@@ -37,22 +38,22 @@ export default function ContentForm() {
     setSlug(name)
   }, [title])
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-
+  async function handleSubmit() {
     // TODO: validate the data
+
+    setPending(true)
+
     const result = await createBlogAction({ title, slug, content })
 
     if (result?.error) {
       toast.error(result.error)
     }
+
+    setPending(false)
   }
 
   return (
-    <form
-      className='mt-6 flex max-w-2xl flex-col gap-4'
-      onSubmit={handleSubmit}
-    >
+    <div className='mt-6 flex max-w-2xl flex-col gap-4'>
       <div className='flex gap-4'>
         <Input
           type='text'
@@ -69,7 +70,9 @@ export default function ContentForm() {
       </div>
 
       <Editor initialValue={defaultValue} onChange={setContent} />
-      <Button type='submit'>Create</Button>
-    </form>
+      <Button onClick={handleSubmit} disabled={pending}>
+        {pending ? 'Submitting...' : 'Create'}
+      </Button>
+    </div>
   )
 }

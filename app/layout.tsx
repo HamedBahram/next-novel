@@ -37,7 +37,7 @@ export default function RootLayout({
           <Header />
           <main className='grow'>{children}</main>
           <Footer />
-          <Toaster />
+          <Toaster position='top-center' />
         </ThemeProvider>
       </body>
     </html>
