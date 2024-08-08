@@ -1,24 +1,19 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-
-import Editor from '@/components/editor'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { createBlogAction } from '@/lib/actions'
 import { toast } from 'sonner'
+
+import Editor from '@/components/editor/editor'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
 
 export const defaultValue = {
   type: 'doc',
   content: [
     {
       type: 'paragraph',
-      content: [
-        {
-          type: 'text',
-          text: 'Type "/" for commands or start writing...'
-        }
-      ]
+      content: []
     }
   ]
 }
