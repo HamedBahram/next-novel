@@ -1,5 +1,6 @@
 'use server'
 
+import { revalidatePath } from 'next/cache'
 import prisma from './prisma'
 import { redirect } from 'next/navigation'
 
@@ -32,5 +33,6 @@ export async function createBlogAction(data: {
     return { error: error.message || 'Failed to create the blog.' }
   }
 
+  revalidatePath('/')
   redirect(`/blog/${post.slug}`)
 }
